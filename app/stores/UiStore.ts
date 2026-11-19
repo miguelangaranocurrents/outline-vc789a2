@@ -410,6 +410,11 @@ class UiStore {
       this.secondaryRightSidebar = panel;
     } else {
       this.rightSidebar = panel;
+      // Persist immediately – rightSidebar is part of PersistedData, and
+      // without this the only values ever written are stale snapshots captured
+      // when an unrelated field is persisted, which re-opens a closed sidebar
+      // after a reload.
+      this.persist();
     }
   };
 
